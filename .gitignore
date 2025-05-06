@@ -1,0 +1,13 @@
+# Pythonin välimuistitiedostot
+*.pyc
+__pycache__/
+
+# Virtuaaliympäristöt
+venv/
+
+# macOSin tiedostot
+.DS_Store
+
+# IDE-tiedostot
+.vscode/
+.idea/
