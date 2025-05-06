@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Lähetä kuva{% endblock %}
+
+{% block content %}
+    <h1>Lähetä kuva</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="image">Choose an image:</label>
+        <input type="file" name="image" required><br><br>
+
+        <label for="staining">Staining:</label>
+        <input type="text" name="staining" id="staining" required><br><br>
+
+        <label for="tissue">Tissue:</label>
+        <input type="text" name="tissue" id="tissue" required><br><br>
+
+        <label for="magnification">Magnification:</label>
+        <input type="text" name="magnification" id="magnification" required><br><br>
+
+        <label for="diagnosis">Diagnosis:</label>
+        <input type="text" name="diagnosis" id="diagnosis" required><br><br>
+    
+        <button type="submit">Upload</button>
+    </form>
+{% endblock %}

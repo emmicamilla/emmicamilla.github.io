@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Image Gallery</h1>
+
+<!-- Flash-ilmoitukset -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="alert alert-success" role="alert">
+      {% for category, message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div class="container">
+  <div class="row g-4">
+    {% for img in images %}
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow-sm">
+          <img 
+            src="{{ url_for('image', image_id=img.id) }}" 
+            alt="{{ img.filename }}"
+            class="card-img-top gallery-image"
+            style="object-fit: cover; height: 200px; cursor: pointer;"
+            data-filename="{{ img.filename }}"
+            data-staining="{{ img.staining }}"
+            data-tissue="{{ img.tissue }}"
+            data-magnification="{{ img.magnification }}"
+            data-diagnosis="{{ img.diagnosis }}"
+          >
+          <div class="card-body p-2">
+            <small>{{ img.staining }} – {{ img.tissue }} – {{ img.magnification }}</small>
+            
+            <!-- Marker Purpose Textarea -->
+            <form method="POST" action="{{ url_for('update_marker_purpose', image_id=img.id) }}">
+              <div class="mb-2">
+                <label for="markerPurpose{{ img.id }}" class="form-label">Marker Purpose:</label>
+                <textarea name="marker_purpose" class="form-control" id="markerPurpose{{ img.id }}" rows="3">{{ img.marker_purpose or '' }}</textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Modal for full-size image -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img id="modalImage" src="" alt="Preview" class="img-fluid mb-3">
+        <div id="modalCaption" class="text-muted small"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

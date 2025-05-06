@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Etusivu{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <label for="staining">Värjäys:</label>
+    <select name="staining" id="staining" class="js-choice" multiple>
+        {% for s in stainings %}
+            <option value="{{ s }}">{{ s }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="tissue">Kudostyyppi:</label>
+    <select name="tissue" id="tissue" class="js-choice" multiple>
+        {% for t in tissues %}
+            <option value="{{ t }}">{{ t }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="diagnosis">Diagnoosi:</label>
+    <select name="diagnosis" id="diagnosis" class="js-choice" multiple>
+        {% for d in diagnoses %}
+            <option value="{{ d }}">{{ d }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Search">
+    <button type="button" id="clear-filters">Tyhjennä valinnat</button>
+</form>
+
+
+  {% if search_done %}
+  <div>
+    <strong>Search criteria:</strong>
+    {% if selected_stainings %}Staining: {{ selected_stainings | join(', ') }}{% endif %}
+    {% if selected_tissues %}<br>Tissue: {{ selected_tissues | join(', ') }}{% endif %}
+    {% if selected_diagnoses %}<br>Diagnosis: {{ selected_diagnoses | join(', ') }}{% endif %}
+  </div>
+  <div class="gallery">
+    {% if images %}
+      {% for img in images %}
+        <img src="{{ url_for('image', image_id=img.id) }}" alt="{{ img.filename }}" width="200">
+      {% endfor %}
+    {% else %}
+      <p>Ei kuvia löydetty</p>
+    {% endif %}
+  </div>
+{% endif %}
+{% endblock %}

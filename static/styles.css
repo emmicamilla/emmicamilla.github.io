@@ -1,0 +1,69 @@
+/* ========== Perusasetukset ========== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 5px;
+}
+
+/* ========== Container-asettelu ========== */
+.container {
+  margin: 20px;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 10px;
+    padding: 5px;
+  }
+}
+
+/* ========== Header-tyylit ========== */
+.header-with-bg {
+  background-image: url("/static/images/header.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+.header-with-bg h1 {
+  color: white;
+  font-size: 2.5em;
+  margin: 0;
+  padding: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ========== Galleria (vanhat flex-rivit voi poistaa jos Bootstrapin grid käytössä) ========== */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: flex-start;
+}
+
+/* ========== Kuvien yleistyylit ========== */
+.gallery-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.gallery-image:hover {
+  transform: scale(1.03);
+}
+
+/* ========== Kortit (Bootstrapin card-luokka) ========== */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
