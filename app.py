@@ -29,8 +29,13 @@ class Image(db.Model):
     marker_purpose = db.Column(db.Text, nullable=True)
 
 # Reitit
-@app.route('/', methods=["GET", "POST"])
+@app.route('/', methods=["GET"])
 def index():
+
+    return render_template('index.html')
+
+@app.route('/search', methods=["GET", "POST"])
+def search():
     #Dropdown values
     stainings = [s[0] for s in db.session.query(Image.staining).distinct().all() if s[0]]
     tissues = [t[0] for t in db.session.query(Image.tissue).distinct().all() if t[0]]
@@ -59,7 +64,7 @@ def index():
 
         images = query.all()
 
-    return render_template('index.html', images=images, stainings=stainings, tissues=tissues, diagnoses=diagnoses, search_done=search_done, selected_stainings=selected_stainings, selected_tissues=selected_tissues, selected_diagnoses=selected_diagnoses)
+    return render_template('search.html', images=images, stainings=stainings, tissues=tissues, diagnoses=diagnoses, search_done=search_done, selected_stainings=selected_stainings, selected_tissues=selected_tissues, selected_diagnoses=selected_diagnoses)
 
 @app.route('/upload', methods=["GET", "POST"])
 def upload():

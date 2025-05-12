@@ -1,50 +1,36 @@
 {% extends "base.html" %}
-
-{% block title %}Etusivu{% endblock %}
+{% block title %}Home | IHC Gallery{% endblock %}
 
 {% block content %}
-<form method="POST">
-    <label for="staining">Värjäys:</label>
-    <select name="staining" id="staining" class="js-choice" multiple>
-        {% for s in stainings %}
-            <option value="{{ s }}">{{ s }}</option>
-        {% endfor %}
-    </select>
+<div class="container my-5 text-center">
+    <h1 class="display-4 fw-bold">Welcome to the IHC Image Gallery</h1>
+    <p class="lead">Browse, upload, and analyze immunohistochemistry images with ease.</p>
+    <a href="{{ url_for('gallery') }}" class="btn btn-primary btn-lg mt-3">Browse Gallery</a>
+</div>
 
-    <label for="tissue">Kudostyyppi:</label>
-    <select name="tissue" id="tissue" class="js-choice" multiple>
-        {% for t in tissues %}
-            <option value="{{ t }}">{{ t }}</option>
-        {% endfor %}
-    </select>
-
-    <label for="diagnosis">Diagnoosi:</label>
-    <select name="diagnosis" id="diagnosis" class="js-choice" multiple>
-        {% for d in diagnoses %}
-            <option value="{{ d }}">{{ d }}</option>
-        {% endfor %}
-    </select>
-
-    <input type="submit" value="Search">
-    <button type="button" id="clear-filters">Tyhjennä valinnat</button>
-</form>
-
-
-  {% if search_done %}
-  <div>
-    <strong>Search criteria:</strong>
-    {% if selected_stainings %}Staining: {{ selected_stainings | join(', ') }}{% endif %}
-    {% if selected_tissues %}<br>Tissue: {{ selected_tissues | join(', ') }}{% endif %}
-    {% if selected_diagnoses %}<br>Diagnosis: {{ selected_diagnoses | join(', ') }}{% endif %}
-  </div>
-  <div class="gallery">
-    {% if images %}
-      {% for img in images %}
-        <img src="{{ url_for('image', image_id=img.id) }}" alt="{{ img.filename }}" width="200">
-      {% endfor %}
-    {% else %}
-      <p>Ei kuvia löydetty</p>
-    {% endif %}
-  </div>
-{% endif %}
+<div class="container text-center my-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm p-3">
+                <h5>📤 Upload Images</h5>
+                <p>Submit new IHC images to the database.</p>
+                <a href="{{ url_for('upload') }}" class="btn btn-outline-secondary">Upload</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm p-3">
+                <h5>🔍 Search by Filters</h5>
+                <p>Use filters to find relevant images directly from the homepage.</p>
+                <a href="#search-form" class="btn btn-outline-secondary">Try Now</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm p-3">
+                <h5>📊 Image Statistics</h5>
+                <p>Visual summary of the image database (coming soon!).</p>
+                <button class="btn btn-outline-secondary" disabled>Coming soon</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

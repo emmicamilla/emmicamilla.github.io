@@ -29,6 +29,7 @@
             data-tissue="{{ img.tissue }}"
             data-magnification="{{ img.magnification }}"
             data-diagnosis="{{ img.diagnosis }}"
+            data-marker-purpose="{{ img.marker_purpose or '' }}"
           >
           <div class="card-body p-2">
             <small>{{ img.staining }} – {{ img.tissue }} – {{ img.magnification }}</small>
@@ -55,9 +56,24 @@
       <div class="modal-body text-center">
         <img id="modalImage" src="" alt="Preview" class="img-fluid mb-3">
         <div id="modalCaption" class="text-muted small"></div>
+
+        <!-- Marker purpose form -->
+        <form method="POST" id="markerPurposeForm" action="/update_marker_purpose" class="mt-3">
+          <input type="hidden" name="image_id" id="formImageId">
+          <div class="mb-2">
+            <textarea 
+              name="marker_purpose" 
+              id="markerPurposeTextarea" 
+              class="form-control" 
+              rows="3"
+              placeholder="Describe the marker purpose..."></textarea>
+          </div>
+          <button type="submit" id="saveButton" class="btn btn-primary" style="display: none;">Save</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
 
 {% endblock %}
