@@ -20,7 +20,7 @@
       <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="card h-100 shadow-sm">
           <img 
-            src="{{ url_for('image', image_id=img.id) }}" 
+            src="{{ url_for('image_bp.image', image_id=img.id) }}" 
             alt="{{ img.filename }}"
             class="card-img-top gallery-image"
             style="object-fit: cover; height: 200px; cursor: pointer;"
@@ -35,7 +35,7 @@
             <small>{{ img.staining }} – {{ img.tissue }} – {{ img.magnification }}</small>
             
             <!-- Marker Purpose Textarea -->
-            <form method="POST" action="{{ url_for('update_marker_purpose', image_id=img.id) }}">
+            <form method="POST" action="{{ url_for('image_bp.update_marker_purpose', image_id=img.id) }}">
               <div class="mb-2">
                 <label for="markerPurpose{{ img.id }}" class="form-label">Marker Purpose:</label>
                 <textarea name="marker_purpose" class="form-control" id="markerPurpose{{ img.id }}" rows="3">{{ img.marker_purpose or '' }}</textarea>

@@ -22,16 +22,16 @@
         <h1>IHC-gallery by R e p e</h1>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Home</a>
+                <a class="nav-link {% if request.endpoint == 'image_bp.index' %}active{% endif %}" href="{{ url_for('image_bp.index') }}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if request.endpoint == 'search' %}active{% endif %}" href="{{ url_for('search') }}">Search</a>
+                <a class="nav-link {% if request.endpoint == 'image_bp.search' %}active{% endif %}" href="{{ url_for('image_bp.search') }}">Search</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if request.endpoint == 'upload' %}active{% endif %}" href="{{ url_for('upload') }}">Upload</a>
+                <a class="nav-link {% if request.endpoint == 'image_bp.upload' %}active{% endif %}" href="{{ url_for('image_bp.upload') }}">Upload</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if request.endpoint == 'gallery' %}active{% endif %}" href="{{ url_for('gallery') }}">Gallery</a>
+                <a class="nav-link {% if request.endpoint == 'image_bp.gallery' %}active{% endif %}" href="{{ url_for('image_bp.gallery') }}">Gallery</a>
             </li>
         </ul>
     </header>
@@ -48,10 +48,11 @@
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
     <!-- Page-specific JS -->
-    {% if request.endpoint == 'search' %}
-      <script src="{{ url_for('static', filename='js/search.js') }}"></script>
-    {% elif request.endpoint == 'gallery' %}
-      <script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
+    {% if request.endpoint == 'image_bp.search' %}
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+    {% elif request.endpoint == 'image_bp.gallery' %}
+    <script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
     {% endif %}
+  
 </body>
 </html>
