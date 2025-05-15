@@ -1,25 +1,49 @@
 {% extends "base.html" %}
 
-{% block title %}Lähetä kuva{% endblock %}
+{% block title %}Upload{% endblock %}
 
 {% block content %}
-    <h1>Lähetä kuva</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <label for="image">Choose an image:</label>
-        <input type="file" name="image" required><br><br>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Upload IHC Images</h1>
+      <p class="card-description">
+        Use the form below to upload a new immunohistochemistry image to the database.
+      </p>
+    </div>
+    <div class="card-content">
+      <form action="/upload" method="post" enctype="multipart/form-data" class="form-grid">
+        <div class="form-group">
+          <label for="image">Choose an image</label>
+          <input type="file" name="image" id="image" required>
+        </div>
 
-        <label for="staining">Staining:</label>
-        <input type="text" name="staining" id="staining" required><br><br>
+        <div class="form-group">
+          <label for="staining">Staining</label>
+          <input type="text" name="staining" id="staining" required>
+        </div>
 
-        <label for="tissue">Tissue:</label>
-        <input type="text" name="tissue" id="tissue" required><br><br>
+        <div class="form-group">
+          <label for="tissue">Tissue</label>
+          <input type="text" name="tissue" id="tissue" required>
+        </div>
 
-        <label for="magnification">Magnification:</label>
-        <input type="text" name="magnification" id="magnification" required><br><br>
+        <div class="form-group">
+          <label for="magnification">Magnification</label>
+          <input type="text" name="magnification" id="magnification" required>
+        </div>
 
-        <label for="diagnosis">Diagnosis:</label>
-        <input type="text" name="diagnosis" id="diagnosis" required><br><br>
-    
-        <button type="submit">Upload</button>
-    </form>
+        <div class="form-group">
+          <label for="diagnosis">Diagnosis</label>
+          <input type="text" name="diagnosis" id="diagnosis" required>
+        </div>
+
+        <div class="buttons">
+          <button type="reset" class="btn-outline">Clear</button>
+          <button type="submit" class="btn-primary">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

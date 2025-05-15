@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Image Gallery</h1>
-
 <!-- Flash-ilmoitukset -->
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
@@ -13,7 +11,13 @@
     </div>
   {% endif %}
 {% endwith %}
-
+<div class="container">
+  <div class="gallery-header">
+    <h1 class="gallery-title">IHC Image Gallery</h1>
+    <p class="gallery-description">
+      Browse our collection of immunohistochemistry images. Click on any image to view more details.
+    </p>
+  </div>
 <div class="container">
   <div class="row g-4">
     {% for img in images %}

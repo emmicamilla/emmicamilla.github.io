@@ -5,14 +5,60 @@
 
 body {
   padding: 5px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-/* ========== Container-asettelu ========== */
-.container {
-  margin: 20px;
-  padding: 10px;
+/* ========== Muuttujat (teemat) ========== */
+:root {
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Light theme */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --primary: #0f172a;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --radius: 0.5rem;
 }
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --border: #334155;
+  --input: #334155;
+  --primary: #f8fafc;
+  --primary-foreground: #0f172a;
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
+  --destructive: #ef4444;
+  --destructive-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+}
+
+/* ========== Rakenne ========== */
+
 
 @media (max-width: 768px) {
   .container {
@@ -21,25 +67,137 @@ body {
   }
 }
 
-/* ========== Header-tyylit ========== */
-.header-with-bg {
-  background-image: url("/static/images/header.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  text-align: center;
+main {
+  flex: 1;
+  padding: 2rem 0;
 }
 
-.header-with-bg h1 {
-  color: white;
-  font-size: 2.5em;
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  padding: 30px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+/* ========== Navigointi ========== */
+.nav-container {
+  display: flex;
+  align-items: center;
 }
 
-/* ========== Galleria (vanhat flex-rivit voi poistaa jos Bootstrapin grid käytössä) ========== */
+nav {
+  display: flex;
+}
+
+nav a {
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+  transition: background-color 0.2s;
+}
+
+nav a:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+nav a.active {
+  font-weight: 500;
+}
+
+header {
+  border-bottom: 1px solid var(--border);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.mobile-menu-button {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--foreground);
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+/* Mobile menu */
+@media (max-width: 767px) {
+  nav {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 250px;
+    background-color: var(--background);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .mobile-menu.open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-close {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    color: var(--foreground);
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+
+  .mobile-menu a {
+    display: block;
+    padding: 0.75rem 0;
+    color: var(--foreground);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mobile-menu a:last-child {
+    border-bottom: none;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* ========== Logo ========== */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+/* ========== Galleria ========== */
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -48,14 +206,13 @@ body {
   justify-content: flex-start;
 }
 
-/* ========== Kuvien yleistyylit ========== */
 .gallery-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
   cursor: pointer;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease-in-out;
 }
 
@@ -63,19 +220,161 @@ body {
   transform: scale(1.03);
 }
 
-/* ========== Kortit (Bootstrapin card-luokka) ========== */
+/* ========== Kortit ja lomakkeet ========== */
 .card {
-  border-radius: 12px;
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Piilottaa tekstikentän galleriassa */
+.card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.card-description {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
 .card-body form {
   display: none;
 }
 
-/* Näyttää tekstikentän modaalissa */
 .modal-body form {
   display: block;
+}
+
+/* ========== Lomake ========== */
+.form-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .filters-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--input);
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: 0.875rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1rem;
+}
+
+.dark select {
+  background-color: var(--card);
+}
+
+/* ========== Painikkeet ========== */
+
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--input);
+  color: var(--foreground);
+}
+
+.btn-outline:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* ========== Teemanvaihtopainike ========== */
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--foreground);
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sun-icon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+.moon-icon {
+  position: absolute;
+  opacity: 0;
+  transform: rotate(90deg) scale(0);
+}
+
+.dark .sun-icon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0);
+}
+
+.dark .moon-icon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+.mobile-menu,
+.overlay {
+  display: none; /* oletuksena piilotettu */
+}
+
+@media (max-width: 768px) {
+  .mobile-menu,
+  .overlay {
+    display: block; /* näkyy vain mobiilissa */
+  }
 }

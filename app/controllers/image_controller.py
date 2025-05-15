@@ -12,7 +12,12 @@ def index():
 
 @image_bp.route('/search', methods=["GET", "POST"])
 def search():
-    filter_options = image_service.get_filter_options()
+    # Fetch dynamic filter options from the database
+    filters = image_service.get_filter_options()
+    stainings = filters["stainings"]
+    tissues = filters["tissues"]
+    diagnoses = filters["diagnoses"]
+
 
     images = []
     search_done = False
@@ -25,6 +30,7 @@ def search():
         images = image_service.search_images(
             selected_stainings, selected_tissues, selected_diagnoses
         )
+        
 
     return render_template('search.html',
                            images=images,
@@ -32,7 +38,9 @@ def search():
                            selected_stainings=selected_stainings,
                            selected_tissues=selected_tissues,
                            selected_diagnoses=selected_diagnoses,
-                           **filter_options)
+                           stainings=stainings,
+                           tissues=tissues,
+                           diagnoses=diagnoses)
 
 
 @image_bp.route('/upload', methods=["GET", "POST"])
@@ -56,8 +64,12 @@ def gallery():
 
 @image_bp.route('/image/<int:image_id>')
 def image(image_id):
-    image_data = image_service.get_image_data_by_id(image_id)
-    return send_file(BytesIO(image_data), mimetype='image/jpeg')
+    try:
+        image_data = image_service.get_image_data_by_id(image_id)
+        return send_file(BytesIO(image_data), mimetype='image/jpeg')
+    except Exception:
+        flash("Image could not be retrieved.", "danger")
+        return redirect(url_for("image_bp.gallery"))
 
 
 @image_bp.route('/update_marker_purpose/<int:image_id>', methods=["POST"])
