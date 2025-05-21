@@ -4,31 +4,30 @@
 {% block content %}
 <div class="container my-5 text-center">
     <h1 class="display-4 fw-bold">Welcome to the Immunohistochemistry Image Gallery</h1>
-    <p class="lead">Browse, upload, and analyze immunohistochemistry images with ease.</p>
-    <a href="{{ url_for('image_bp.gallery') }}" class="btn btn-primary btn-lg mt-3">Browse Gallery</a>
+    <p class="lead py-4">Browse, upload and analyze immunohistochemistry images with ease.</p>
 </div>
 
 <div class="container text-center my-5">
     <div class="row g-4">
         <div class="col-md-4">
             <div class="card h-100 shadow-sm p-3">
-                <h5>📤 Upload Images</h5>
-                <p>Submit new IHC images to the database.</p>
+                <h5>Upload Images</h5>
+                <p>Submit new immunohistochemistry images to the database.</p>
                 <a href="{{ url_for('image_bp.upload') }}" class="btn btn-outline-secondary">Upload</a>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card h-100 shadow-sm p-3">
-                <h5>🔍 Search by Filters</h5>
+                <h5>Search by Filters</h5>
                 <p>Use filters to find relevant images directly from the homepage.</p>
                 <a href="{{ url_for('image_bp.search') }}" class="btn btn-outline-secondary">Try Now</a>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card h-100 shadow-sm p-3">
-                <h5>📊 Image Statistics</h5>
-                <p>Visual summary of the image database (coming soon!).</p>
-                <button class="btn btn-outline-secondary" disabled>Coming soon</button>
+                <h5>Browse Gallery</h5>
+                <p>Browse the entire database of stained tissue images with preview thumbnails.</p>
+                <a href="{{ url_for('image_bp.search') }}" class="btn btn-outline-secondary">Browse</a>
             </div>
         </div>
     </div>
