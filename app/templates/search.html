@@ -44,24 +44,35 @@
         </div>
         <div class="form-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem;">
           {% if search_done %}
-            <div class="search-criteria-inline" style="font-size: 0.875rem;">
-              <strong>Search criteria:</strong>
-              <ul style="list-style: none; padding-left: 0; margin: 0; display: inline;">
-                {% if selected_stainings %}
-                  <li style="display: inline; margin-right: 1rem;"><strong>Staining:</strong> {{ selected_stainings | join(', ') }}</li>
-                {% endif %}
-                {% if selected_tissues %}
-                  <li style="display: inline; margin-right: 1rem;"><strong>Tissue:</strong> {{ selected_tissues | join(', ') }}</li>
-                {% endif %}
-                {% if selected_diagnoses %}
-                  <li style="display: inline;"><strong>Diagnosis:</strong> {{ selected_diagnoses | join(', ') }}</li>
-                {% endif %}
-              </ul>
+          <div class="search-criteria-inline" style="font-size: 0.875rem;">
+            <strong style="display: block; margin-bottom: 0.5rem;">Search criteria:</strong>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+              {% for stain in selected_stainings %}
+              <span class="chip chip-primary">
+                {{ stain }}
+                <button type="submit" name="remove_stain" value="{{ stain }}" class="chip-close" aria-label="Remove">&times;</button>
+              </span>              
+              {% endfor %}
+              {% for tissue in selected_tissues %}
+              <span class="chip chip-primary">
+                  {{ tissue }}
+                  <button type="submit" name="remove_tissue" value="{{ tissue }}" class="chip-close" aria-label="Remove">&times;</button>
+                </span>
+              {% endfor %}
+              {% for diagnosis in selected_diagnoses %}
+              <span class="chip chip-primary">
+                  {{ diagnosis }}
+                  <button type="submit" name="remove_diagnosis" value="{{ diagnosis }}" class="chip-close" aria-label="Remove">&times;</button>
+                </span>
+              {% endfor %}
+            </div>
+          </div>
+          
             </div>
           {% endif %}
           {% if search_done and not images %}
           <p>No results found for the selected filters.</p>
-          {% endif %}
+        {% endif %}
         
           <div class="buttons" id="search-criteria-buttons" style="flex-shrink: 0;">
             <button type="reset" class="btn-outline">Clear</button>
@@ -108,7 +119,7 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <img id="modalImage" src="" alt="Preview" class="img-fluid mb-3">
-          <div id="modalCaption" class="text-muted small"></div>
+          <div id="modalCaption" class="text-muted small text-start"></div>
   
           <!-- Marker purpose form -->
           <form method="POST" id="markerPurposeForm" action="/update_marker_purpose" class="mt-3">

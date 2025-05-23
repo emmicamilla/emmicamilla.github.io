@@ -445,7 +445,6 @@ button,
 }
 
 #search-criteria-buttons {
-  display: flex;
   gap: 0.5rem;
   margin-left: auto; /* puskee napit oikealle */
 }
@@ -459,3 +458,44 @@ button,
   padding: 1rem 0;
 }
 
+.flash-message {
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 8px;
+  color: white;
+}
+
+.flash-message.success {
+  background-color: #4CAF50; /* vihreä */
+}
+
+.flash-message.error {
+  background-color: #f44336; /* punainen */
+}
+
+.flash-message.warning {
+  background-color: #ff9800; /* keltainen */
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius);
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  border: 1px solid var(--border);
+  gap: 0.4rem;
+}
+
+.chip-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.25rem;
+}

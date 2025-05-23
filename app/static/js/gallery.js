@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Näytä kuvateksti
       const caption = `
-        <strong>${img.dataset.filename}</strong><br>
         Staining: ${img.dataset.staining}<br>
         Tissue: ${img.dataset.tissue}<br>
         Magnification: ${img.dataset.magnification}<br>

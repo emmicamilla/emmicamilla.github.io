@@ -32,14 +32,14 @@
   </script>
 </head>
 <body>
-  {% with messages = get_flashed_messages() %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
+  {% for category, message in messages %}
+  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
   {% endif %}
   {% endwith %}
   <header>
@@ -125,7 +125,7 @@
       overlay.addEventListener('click', closeMenu);
     }
   </script>
-  
+
   <footer class="footer d-flex justify-content-center align-items-center">
     <p class="mb-0">Immunohistochemistry Image Search © 2025</p>
   </footer>
@@ -136,5 +136,4 @@
   <script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
   {% endif %}
 </body>
-
 </html>
