@@ -44,7 +44,6 @@
   box-sizing: border-box;
 }
 
-
 /* Piilota normaali nav mobiilissa */
 @media (max-width: 767px) {
   nav {
@@ -117,7 +116,7 @@ main {
   padding: 0 1rem;
 }
 
-/* ========== Navigointi ========== */
+/* ========== Nav ========== */
 header {
   border-bottom: 1px solid var(--border);
 }
@@ -236,11 +235,11 @@ display: none;
 }
 
 .logo:hover {
-  color: #444; /* Hiukan vaaleampi */
+  color: #64748b;
   cursor: pointer;
 }
 
-/* ========== Galleria ========== */
+/* ========== Gallery ========== */
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -263,7 +262,7 @@ display: none;
   transform: scale(1.03);
 }
 
-/* ========== Kortit ja lomakkeet ========== */
+/* ========== Cards ========== */
 .card {
   background-color: var(--card);
   color: var(--card-foreground);
@@ -303,7 +302,7 @@ display: none;
   display: block;
 }
 
-/* ========== Lomakkeet ========== */
+/* ========== Forms ========== */
 .form-grid,
 .filters-grid {
   display: grid;
@@ -336,7 +335,7 @@ select {
   background-size: 1rem;
 }
 
-/* ========== Painikkeet ========== */
+/* ========== Buttons ========== */
 button,
 .btn-outline,
 .btn-primary {
@@ -376,7 +375,7 @@ button,
   margin-top: 1rem;
 }
 
-/* ========== Teemanvaihtopainike ========== */
+/* ========== Theme button ========== */
 .theme-toggle {
   background: none;
   border: none;
@@ -392,7 +391,7 @@ button,
   
 }
 .theme-toggle:hover {
-  background-color: var(--accent);
+  color: #64748b;
 }
 
 .sun-icon, .moon-icon {
@@ -422,6 +421,34 @@ button,
   transform: rotate(0) scale(1);
 }
 
+/* ========== search criteria ========== */
+
+.search-criteria {
+  font-size: 0.875rem; /* tai esim. 14px tai pienempi */
+  background-color: transparent; /* pitää taustan muuttumattomana */
+  padding: 0.5rem 0;
+  margin-top: 1rem;
+}
+
+.search-criteria li {
+  display: block;
+  margin-right: 1rem;
+}
+
+.search-criteria strong {
+  display: block;
+  margin-bottom: 0.5rem; /* haluamasi väli */
+  font-weight: 600;
+  font-size: 1.125rem;  /* isompi kuin 0.875rem */   /* selkeä paino */
+  display: block;
+  margin-bottom: 0.5rem; 
+}
+
+#search-criteria-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto; /* puskee napit oikealle */
+}
 
 /* ========== Footer ========== */
 .footer {
@@ -431,3 +458,4 @@ button,
   border-top: 1px solid var(--border);
   padding: 1rem 0;
 }
+

@@ -18,19 +18,25 @@ def search():
     tissues = filters["tissues"]
     diagnoses = filters["diagnoses"]
 
-
     images = []
     search_done = False
+
+    # Käytetään getlist, koska saat listoja (monivalinta)
     selected_stainings = request.form.getlist("staining")
     selected_tissues = request.form.getlist("tissue")
     selected_diagnoses = request.form.getlist("diagnosis")
 
     if request.method == "POST":
-        search_done = True
-        images = image_service.search_images(
-            selected_stainings, selected_tissues, selected_diagnoses
-        )
-        
+        # Tarkistetaan onko yhtään filtteriä valittu
+        if not (selected_stainings or selected_tissues or selected_diagnoses):
+            flash("Please select at least one filter before searching.", "warning")
+            search_done = False
+            images = []
+        else:
+            search_done = True
+            images = image_service.search_images(
+                selected_stainings, selected_tissues, selected_diagnoses
+            )
 
     return render_template('search.html',
                            images=images,

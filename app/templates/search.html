@@ -12,7 +12,7 @@
       </p>
     </div>
     <div class="card-content">
-      <form id="search-form" class="form-grid">
+      <form id="search-form" method="post" class="form-grid">
         <div class="filters-grid">
           <div class="form-group">
             <label for="staining">Staining</label>
@@ -42,32 +42,101 @@
             </select>
           </div>
         </div>
-        <div class="buttons">
-          <button type="button" class="btn-outline" id="clear-btn">Clear</button>
-          <button type="submit" class="btn-primary">Search</button>
+        <div class="form-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem;">
+          {% if search_done %}
+            <div class="search-criteria-inline" style="font-size: 0.875rem;">
+              <strong>Search criteria:</strong>
+              <ul style="list-style: none; padding-left: 0; margin: 0; display: inline;">
+                {% if selected_stainings %}
+                  <li style="display: inline; margin-right: 1rem;"><strong>Staining:</strong> {{ selected_stainings | join(', ') }}</li>
+                {% endif %}
+                {% if selected_tissues %}
+                  <li style="display: inline; margin-right: 1rem;"><strong>Tissue:</strong> {{ selected_tissues | join(', ') }}</li>
+                {% endif %}
+                {% if selected_diagnoses %}
+                  <li style="display: inline;"><strong>Diagnosis:</strong> {{ selected_diagnoses | join(', ') }}</li>
+                {% endif %}
+              </ul>
+            </div>
+          {% endif %}
+          {% if search_done and not images %}
+          <p>No results found for the selected filters.</p>
+          {% endif %}
+        
+          <div class="buttons" id="search-criteria-buttons" style="flex-shrink: 0;">
+            <button type="reset" class="btn-outline">Clear</button>
+            <button type="submit" class="btn-primary">Search</button>
+          </div>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-
-
   {% if search_done %}
-  <div>
-    <strong>Search criteria:</strong>
-    {% if selected_stainings %}Staining: {{ selected_stainings | join(', ') }}{% endif %}
-    {% if selected_tissues %}<br>Tissue: {{ selected_tissues | join(', ') }}{% endif %}
-    {% if selected_diagnoses %}<br>Diagnosis: {{ selected_diagnoses | join(', ') }}{% endif %}
-  </div>
-  <div class="gallery">
-    {% if images %}
+
+  <div id="results" class="container mt-4">
+    <div class="row g-4">
       {% for img in images %}
-        <img src="{{ url_for('image', image_id=img.id) }}" alt="{{ img.filename }}" width="200">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="card h-100 shadow-sm">
+            <img 
+              src="{{ url_for('image_bp.image', image_id=img.id) }}" 
+              alt="{{ img.filename }}"
+              class="card-img-top gallery-image"
+              style="object-fit: cover; height: 200px; cursor: pointer;"
+              data-image-id="{{ img.id }}"
+              data-filename="{{ img.filename }}"
+              data-staining="{{ img.staining }}"
+              data-tissue="{{ img.tissue }}"
+              data-magnification="{{ img.magnification }}"
+              data-diagnosis="{{ img.diagnosis }}"
+              data-marker-purpose="{{ img.marker_purpose or '' }}"
+              data-image-url="{{ url_for('image_bp.image', image_id=img.id) }}"
+            >
+            <div class="card-body p-2">
+              <small>{{ img.staining }} – {{ img.tissue }} – {{ img.magnification }}</small>
+            </div>
+          </div>
+        </div>
       {% endfor %}
-    {% else %}
-      <p>Ei kuvia löydetty</p>
-    {% endif %}
+    </div>
   </div>
+
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <img id="modalImage" src="" alt="Preview" class="img-fluid mb-3">
+          <div id="modalCaption" class="text-muted small"></div>
+  
+          <!-- Marker purpose form -->
+          <form method="POST" id="markerPurposeForm" action="/update_marker_purpose" class="mt-3">
+            <input type="hidden" name="image_id" id="formImageId">
+            <div class="mb-2">
+              <textarea 
+                name="marker_purpose" 
+                id="markerPurposeTextarea" 
+                class="form-control" 
+                rows="3"
+                placeholder="Describe the marker purpose..."></textarea>
+            </div>
+            <button type="submit" id="saveButton" class="btn btn-primary" style="display: none;">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Kun sivu on ladattu, skrollataan results-diviin
+  document.addEventListener("DOMContentLoaded", function() {
+    const resultsDiv = document.getElementById("results");
+    if (resultsDiv) {
+      resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+</script>
+  
 {% endif %}
 {% endblock %}
